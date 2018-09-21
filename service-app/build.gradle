@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: "logback-classic"
+    }
+    compile("org.springframework.boot:spring-boot-starter-actuator") {
+        exclude module: "logback-classic"
+    }
+
+    compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
+    compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
+    compile project (":api")
+}

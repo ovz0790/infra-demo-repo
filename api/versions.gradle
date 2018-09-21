@@ -1,0 +1,7 @@
+allprojects {
+    ext['swaggerVersion'] = '2.9.2'
+    ext['apacheCommonVersion'] = '3.3.2'
+    ext['slf4jVersion'] = '2.10.0'
+    ext['feignVersion'] = '2.0.1.RELEASE'
+    ext['log4jVersion'] = '2.10.0'
+}

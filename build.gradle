@@ -1,0 +1,65 @@
+plugins {
+    id 'org.springframework.boot' version '2.0.5.RELEASE' apply false
+}
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+apply from: 'versions.gradle'
+
+allprojects {
+    group 'net.feign.demo'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-gradle-plugin'
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ["src/main/java"]
+            }
+        }
+    }
+    repositories {
+        jcenter()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.SR1"
+        }
+    }
+    configurations {
+        compile.exclude group: 'commons-logging'
+        compile.exclude group: 'org.apache.xmlgraphics', module: 'batik-ext'
+        compile.exclude module : 'spring-boot-starter-logging'
+    }
+
+    dependencies {
+        testCompile 'junit:junit'
+        testCompile "org.mockito:mockito-core"
+        compile 'org.apache.commons:commons-lang3'
+        compile "org.projectlombok:lombok"
+
+        compile 'javax.validation:validation-api'
+        compile "org.projectlombok:lombok"
+
+
+
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile('io.projectreactor:reactor-test')
+        compileOnly 'org.projectlombok:lombok:1.18.2'
+        testCompileOnly 'org.projectlombok:lombok:1.18.2'
+
+    }
+
+    clean.doFirst {
+        delete "out/"
+    }
+}

@@ -1,0 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
+    compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}

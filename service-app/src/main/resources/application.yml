@@ -1,0 +1,21 @@
+server:
+  port: ${PORT_TO_EXPOSE:8085}
+spring:
+  application:
+    name: service-app
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    deserialization:
+      FAIL_ON_READING_DUP_TREE_KEY: true
+
+logging:
+  level:
+    ROOT: INFO
+    net.feign.demo: DEBUG
+    org.springframework: INFO
+
+service-app:
+  ribbon:
+    eureka:
+      enabled: true

@@ -1,0 +1,6 @@
+rootProject.name = 'infta-demo-app'
+
+include 'api'
+include 'client-app'
+include 'service-app'
+
