@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IHelloController {
 
@@ -15,5 +16,9 @@ public interface IHelloController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/target/post", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     String create(@RequestBody UpdateDto updateDto);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/target/attach/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    String gettingAttachedFiles(@RequestParam("files") MultipartFile[] files);
+
 
 }

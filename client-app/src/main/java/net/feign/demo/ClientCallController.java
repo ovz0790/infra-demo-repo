@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(path = "/feign")
@@ -36,4 +37,13 @@ public class ClientCallController {
     public String callCreate(@RequestBody UpdateDto updateDto) {
         return feignForHelloController.create(updateDto) + " Called via feign.";
     }
+
+
+    @RequestMapping(method = RequestMethod.POST, path = "/attach/post/to/discovery", produces = MediaType.MULTIPART_FORM_DATA_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String callAttachedFiles(@RequestParam("files") final MultipartFile[] files) {
+        return feignForHelloController.gettingAttachedFiles(files) + " Called via feign.";
+    }
+
+
 }

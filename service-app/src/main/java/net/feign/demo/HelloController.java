@@ -1,10 +1,15 @@
 package net.feign.demo;
 
+import java.util.Arrays;
+import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RestController
 public class HelloController implements IHelloController {
 
@@ -17,6 +22,20 @@ public class HelloController implements IHelloController {
     @Override
     public String create(@RequestBody final UpdateDto updateDto) {
         return updateDto.getName();
+    }
+
+    @Override
+    public String gettingAttachedFiles(@RequestParam("files") final MultipartFile[] files) {
+        Optional.ofNullable(files).orElseThrow(() -> new IllegalArgumentException("Files didn't attached!"));
+
+        final StringBuilder sb = new StringBuilder("Target service got files: ");
+        Arrays.stream(files).forEach(f -> sb.append(" File with name ")
+                                            .append(f.getName())
+                                            .append("{")
+                                            .append(f.getOriginalFilename())
+                                            .append(")").append(" has size ")
+                                            .append(f.getSize()).append(". "));
+        return sb.toString();
     }
 
 }
