@@ -24,18 +24,4 @@ public class HelloController implements IHelloController {
         return updateDto.getName();
     }
 
-    @Override
-    public String gettingAttachedFiles(@RequestParam("files") final MultipartFile[] files) {
-        Optional.ofNullable(files).orElseThrow(() -> new IllegalArgumentException("Files didn't attached!"));
-
-        final StringBuilder sb = new StringBuilder("Target service got files: ");
-        Arrays.stream(files).forEach(f -> sb.append(" File with name ")
-                                            .append(f.getName())
-                                            .append("{")
-                                            .append(f.getOriginalFilename())
-                                            .append(")").append(" has size ")
-                                            .append(f.getSize()).append(". "));
-        return sb.toString();
-    }
-
 }

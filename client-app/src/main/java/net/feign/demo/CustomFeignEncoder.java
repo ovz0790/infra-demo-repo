@@ -13,15 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomFeignEncoder extends SpringEncoder {
 
-
     public CustomFeignEncoder(final ObjectFactory<HttpMessageConverters> messageConverters) {
         super(messageConverters);
     }
 
     @Override
     public void encode(final Object object, final Type bodyType, final RequestTemplate template) throws EncodeException {
-        UpdateDto dto = (UpdateDto) object;
-        log.error("LOGGING REQUEST TYPE for name {}", dto.getName());
+        if (object instanceof UpdateDto) {
+            UpdateDto dto = (UpdateDto) object;
+            log.error("LOGGING REQUEST TYPE for name {}", dto.getName());
+        }
 
         //Here we could add some response handler and/or transformations before sending request to feign target endpoint
         // template.body(object.toString().getBytes(), Charsets.UTF_8);

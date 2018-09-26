@@ -25,5 +25,6 @@ dependencies {
 
     compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
     compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+    compile "io.github.openfeign.form:feign-form:3.3.0"
     compile project (":api")
 }

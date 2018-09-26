@@ -17,6 +17,7 @@ public class ClientCallController {
 
     private final FeignForHelloController feignForHelloController;
     private final FeignForStandaloneController feignForStandaloneController;
+    private final FeignUpl feignUpl;
 
     @RequestMapping(method = RequestMethod.GET, path = "/get/from/discovery/{id}")
     public String callHello(@PathVariable(name = "id") Integer id, @RequestParam(name = "name") String name){
@@ -38,12 +39,8 @@ public class ClientCallController {
         return feignForHelloController.create(updateDto) + " Called via feign.";
     }
 
-
-    @RequestMapping(method = RequestMethod.POST, path = "/attach/post/to/discovery", produces = MediaType.MULTIPART_FORM_DATA_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String callAttachedFiles(@RequestParam("files") final MultipartFile[] files) {
-        return feignForHelloController.gettingAttachedFiles(files) + " Called via feign.";
-    }
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) { return feignUpl.handleFileUpload(file); }
 
 
 }
